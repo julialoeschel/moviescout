@@ -3,13 +3,22 @@ import type { ReactNode } from 'react';
 import styled from 'styled-components';
 type TagProps = {
   children: ReactNode;
-  tagStatus?: boolean;
+  active?: boolean;
+  count?: string;
 };
-export default function Tag({ children, tagStatus }: TagProps): JSX.Element {
-  return <TagStyleActive tagStatus={tagStatus}>{children}</TagStyleActive>;
+export default function Tag({
+  children,
+  active = false,
+  count,
+}: TagProps): JSX.Element {
+  return (
+    <TagStyleActive active={active}>
+      {children} {count && `(${count})`}
+    </TagStyleActive>
+  );
 }
 const TagStyleActive = styled.span<Partial<TagProps>>`
-  background-color: ${(props) => (props.tagStatus ? '#FFC700' : '#2A2A2A')};
+  background-color: ${(props) => (props.active ? '#FFC700' : '#2A2A2A')};
   color: white;
   border-radius: 3.5em;
   padding: 7px 15px;
